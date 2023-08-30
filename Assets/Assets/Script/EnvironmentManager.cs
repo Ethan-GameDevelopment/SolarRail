@@ -7,6 +7,7 @@ public class EnvironmentManager : MonoBehaviour
     //CONNECTIONS
 
     public GameObject gameManager;
+    public GameObject resourceManager;
     
     //LISTS
 
@@ -17,7 +18,11 @@ public class EnvironmentManager : MonoBehaviour
 
     public string currentWeather;
     private string currentBiome;
-    
+
+    public int RainStrength = 5;
+
+    public bool isRaining = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -31,6 +36,17 @@ public class EnvironmentManager : MonoBehaviour
         {
             RandomiseWeather();
         }
+
+  
+        if(isRaining)
+        {
+            currentWeather = "Raining";
+            resourceManager.GetComponent<ResourceManager>().FillWaterTank(RainStrength);
+        } else
+        {
+            currentWeather = "Clear";
+        }
+
     }
 
     void RandomiseWeather()
@@ -41,6 +57,17 @@ public class EnvironmentManager : MonoBehaviour
     public string GetWeatherStatus()
     {
         return currentWeather;
+    }
+
+    public void ToggleRain()
+    {
+        if(isRaining)
+        {
+            isRaining = false;
+        } else
+        {
+            isRaining = true;
+        }
     }
 
 }

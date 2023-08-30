@@ -10,8 +10,8 @@ public class ResourceManager : MonoBehaviour
 
     // TANKS
 
-    public int currentWaterTankLevel = 100;
-    public int maximumWaterTankLevel = 500;
+    public float currentWaterTankLevel = 100;
+    public float maximumWaterTankLevel = 500;
 
     public int currentSolarTankLevel = 20;
     public int maximumSolarTankLevel = 500;
@@ -33,9 +33,9 @@ public class ResourceManager : MonoBehaviour
 
     public void FillWaterTank(int RainStrength)
     {
-        if(currentWaterTankLevel < maximumWaterTankLevel)
+        if (currentWaterTankLevel < maximumWaterTankLevel)
         {
-            currentWaterTankLevel += RainStrength;
+            currentWaterTankLevel += RainStrength * Time.deltaTime;
         }
     }
 
