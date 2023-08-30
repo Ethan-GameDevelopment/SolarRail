@@ -14,9 +14,13 @@ public class ResourceManager : MonoBehaviour
     public float currentWaterTankLevel = 100;
     public float maximumWaterTankLevel;
 
+    public bool waterNutrientsStatus = false;
+
     // SOLAR TANK STATS
     public float currentSolarTankLevel = 20;
     public float maximumSolarTankLevel;
+
+    public bool solarPanelStatus = false;
 
     // Start is called before the first frame update
     void Start()
@@ -27,12 +31,18 @@ public class ResourceManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown("n"))
-        {
-            AddWater(50);
-        }
-    }
+        // OVERFLOW STOPPERS
+        if (currentSolarTankLevel > maximumSolarTankLevel)
+        { currentSolarTankLevel = maximumSolarTankLevel;}
+        
+        if(currentWaterTankLevel > maximumWaterTankLevel)
+        { currentWaterTankLevel=maximumWaterTankLevel;}
 
+
+    }
+    
+
+    // Functions is called when I tell them to
     public void FillWaterTank(int rainStrength)
     {
         if (currentWaterTankLevel < maximumWaterTankLevel)
@@ -43,7 +53,7 @@ public class ResourceManager : MonoBehaviour
 
     public void FillSolarTank(int sunStrength)
     {
-        if (currentSolarTankLevel < maximumSolarTankLevel)
+        if ((currentSolarTankLevel < maximumSolarTankLevel) && (solarPanelStatus == true))
         {
             currentSolarTankLevel += sunStrength * Time.deltaTime;
         }
@@ -58,8 +68,30 @@ public class ResourceManager : MonoBehaviour
         {
             currentWaterTankLevel = maximumWaterTankLevel;
         }
-        
+    }
 
+    public void TogglePanel()
+    {
+        if (solarPanelStatus)
+        {
+            solarPanelStatus = false;
+        }
+        else
+        {
+            solarPanelStatus = true;
+        }
+    }
+
+    public void ToggleNutrients()
+    {
+        if (waterNutrientsStatus)
+        {
+            waterNutrientsStatus = false;
+        }
+        else
+        {
+            waterNutrientsStatus = true;
+        }
     }
 
 }
