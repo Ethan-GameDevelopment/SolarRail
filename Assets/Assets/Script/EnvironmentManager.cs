@@ -19,9 +19,11 @@ public class EnvironmentManager : MonoBehaviour
     public string currentWeather;
     private string currentBiome;
 
-    public int RainStrength = 5;
+    public int rainStrength = 5;
+    public int sunStrength = 1;
 
     public bool isRaining = false;
+    public bool isSunny = false;
 
     // Start is called before the first frame update
     void Start()
@@ -37,15 +39,23 @@ public class EnvironmentManager : MonoBehaviour
             RandomiseWeather();
         }
 
-  
+        // RAIN FILL WATER TANK WHEN RAINING
         if(isRaining)
         {
             currentWeather = "Raining";
-            resourceManager.GetComponent<ResourceManager>().FillWaterTank(RainStrength);
+            resourceManager.GetComponent<ResourceManager>().FillWaterTank(rainStrength);
         } else
         {
             currentWeather = "Clear";
         }
+
+        // SUN FILL SOLAR TANK WHEN SUNNY
+        if (isSunny)
+        {
+            // currentWeather = "Sunny";
+            resourceManager.GetComponent<ResourceManager>().FillSolarTank(sunStrength);
+        }
+       
 
     }
 
@@ -67,6 +77,18 @@ public class EnvironmentManager : MonoBehaviour
         } else
         {
             isRaining = true;
+        }
+    }
+
+    public void ToggleSunlight()
+    {
+        if (isSunny)
+        {
+            isSunny = false;
+        }
+        else
+        {
+            isSunny = true;
         }
     }
 

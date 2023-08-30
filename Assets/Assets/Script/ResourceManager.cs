@@ -8,13 +8,15 @@ public class ResourceManager : MonoBehaviour
 
     public GameObject environmentManager;
 
-    // TANKS
+    // TANKS // 
 
+    // WATER TANK STATS
     public float currentWaterTankLevel = 100;
-    public float maximumWaterTankLevel = 500;
+    public float maximumWaterTankLevel;
 
-    public int currentSolarTankLevel = 20;
-    public int maximumSolarTankLevel = 500;
+    // SOLAR TANK STATS
+    public float currentSolarTankLevel = 20;
+    public float maximumSolarTankLevel;
 
     // Start is called before the first frame update
     void Start()
@@ -31,11 +33,19 @@ public class ResourceManager : MonoBehaviour
         }
     }
 
-    public void FillWaterTank(int RainStrength)
+    public void FillWaterTank(int rainStrength)
     {
         if (currentWaterTankLevel < maximumWaterTankLevel)
         {
-            currentWaterTankLevel += RainStrength * Time.deltaTime;
+            currentWaterTankLevel += rainStrength * Time.deltaTime;
+        }
+    }
+
+    public void FillSolarTank(int sunStrength)
+    {
+        if (currentSolarTankLevel < maximumSolarTankLevel)
+        {
+            currentSolarTankLevel += sunStrength * Time.deltaTime;
         }
     }
 
