@@ -72,10 +72,11 @@ public class PlayerMovement : MonoBehaviour
             float x = Input.GetAxis("Horizontal");
             float z = Input.GetAxis("Vertical");
 
-            if (Input.GetButtonDown("Jump") && isGrounded)
-            {
-                velocity.y = Mathf.Sqrt(jumpHeight * -2 * gravity);
-            }
+            // JUMP
+            // if (Input.GetButtonDown("Jump") && isGrounded)
+            // {
+            //     velocity.y = Mathf.Sqrt(jumpHeight * -2 * gravity);
+            // }
 
             if (Input.GetKeyDown(KeyCode.LeftShift) && isGrounded)
             {
@@ -96,7 +97,7 @@ public class PlayerMovement : MonoBehaviour
             {
                 velocity.y = -2f;
             }
-
+            
             // This fakes gravity!
             velocity.y += gravity * Time.deltaTime;
 
@@ -107,8 +108,10 @@ public class PlayerMovement : MonoBehaviour
             controller.Move(move * speed * Time.deltaTime + velocity * Time.deltaTime);
         }
 
+        
+
         // LOCK MOUSE AND GRAVITY
-        if(Input.GetKey("q"))
+        if (Input.GetKey("f"))
         {
             cursorMode = true;
             movementMode = false;
