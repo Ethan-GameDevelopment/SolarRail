@@ -43,29 +43,22 @@ public class PowerCell : MonoBehaviour
             powercellSliceDisplays[i].GetComponent<MeshRenderer>().material.color = new Color(sliceColour.r, sliceColour.g, sliceColour.b, sliceChargeP);
         }
 
-        // SWAP FOCUSSED
+        // SWAP FOCUSSED & ADD/SUBTRACT SOLAR
 
-        if(Input.GetKeyDown("j"))
+        if(Input.GetKey("j"))
         {
             AdjustFocusedSlice(0, 5);
         }
 
-        if (Input.GetKeyDown("l"))
+        if (Input.GetKey("l"))
         {
-            AdjustFocusedSlice(1, 5);
+            AdjustFocusedSlice(1, 10);
         }
 
         if (Input.GetKeyDown("k"))
         {
             SwapFocusedSlice();
         }
-
-
-
-
-
-
-
     }
 
     void SwapFocusedSlice()
@@ -79,16 +72,28 @@ public class PowerCell : MonoBehaviour
         }
     }
 
-    void AdjustFocusedSlice(int direction,int amount)
+    void AdjustFocusedSlice(int direction, float amount)
     {
         if(direction == 1)
         {
-            powercellSlices[focusedSlice] += amount;
+            if (amount < (maximumPowerCellSliceLevel - powercellSlices[focusedSlice]))
+            {
+                powercellSlices[focusedSlice] += amount * Time.deltaTime;
+            } else
+            {
+                powercellSlices[focusedSlice] = maximumPowerCellSliceLevel;
+            }
         }
-        if(direction == 0)
+        
+        if (direction == 0)
         {
-            powercellSlices[focusedSlice] -= amount;
+            if (amount < powercellSlices[focusedSlice])
+            {
+                powercellSlices[focusedSlice] -= amount * Time.deltaTime;
+            } else
+            {
+                powercellSlices[focusedSlice] = 0;
+            }
         }
-
     }
 }
